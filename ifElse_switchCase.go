@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func main() {
+func IfElseSwitchCase() {
 	//Example 1:
 	m := make(map[string]int)
 	m = map[string]int{
