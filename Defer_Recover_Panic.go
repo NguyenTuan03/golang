@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func main() {
+func DeferRecoverPanic() {
 	fmt.Println("Bắt đầu")
 
 	defer fmt.Println("Deferred 1")
