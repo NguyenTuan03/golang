@@ -22,6 +22,7 @@ type TodoItem struct {
 	UpdatedAt   *time.Time `json:"updated_at,omitempty"`
 }
 type TodoItemCreate struct {
+	Id          int    `json:"-" gorm:"column:id;"`
 	Title       string `json:"title" gorm:"column:title;"`
 	Description string `json:"description" gorm:"column:description;"`
 	Status      string `json:"status" gorm:"column:status;"`
@@ -90,7 +91,7 @@ func CreateItem(db *gorm.DB) func(*gin.Context) {
 			return
 		}
 		c.JSON(http.StatusOK, gin.H{
-			"message": data,
+			"message": data.Id,
 		})
 	}
 }
