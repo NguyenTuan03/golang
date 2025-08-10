@@ -1,6 +1,6 @@
 package main 
 import "fmt"
-func main() {
+func Pointer() {
 	var a int = 10
 	var b *int = &a // b là con trỏ trỏ đến a
 	fmt.Println("Trước khi gán: ", &a, b)

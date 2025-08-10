@@ -23,7 +23,7 @@ func Array() {
 	fmt.Printf("b = %v, %v, %v\n", b, len(b), cap(b))
 	fmt.Printf("c = %v, %v, %v\n", c, len(c), cap(c))
 	fmt.Printf("d = %v, %v, %v\n", d, len(d), cap(d))
-	fmt.Printf("e = %v, %v, %v\n", e, len(e), cap(e))
+	fmt.Printf("e = %v, %v, %v\n", e, len(e), cap(e))  
 	//make: khai báo 1 slice và có thể xác định được len và cap
 	fmt.Println("Make Formulas.......")
 	amake := make([]int, 0)
