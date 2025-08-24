@@ -54,6 +54,14 @@ type Pagination struct {
 	Total int64 `json:"total" form:"-"`
 }
 
+func (p *Pagination) Process() {
+	if p.Page <= 0 {
+		p.Page = 1
+	}
+	if p.Limit <= 0 {
+		p.Limit = 10
+	}
+}
 func main() {
 	err := godotenv.Load()
 	if err != nil {
@@ -75,7 +83,7 @@ func main() {
 	}
 
 	r := gin.Default()
-	v1 := r.Group("/v1")
+	v1 := r.Group("/api/v1")
 	{
 		items := v1.Group("/items")
 		{
@@ -125,16 +133,30 @@ func GetItems(db *gorm.DB) func(*gin.Context) {
 			})
 			return
 		}
-		var data []TodoItem
-		if err := db.Order("id asc").Limit(paging.Limit).Pa.Find(&data).Error; err != nil {
+
+		paging.Process()
+
+		var result []TodoItem
+		db = db.Where("COALESCE(status, '') <> ?", "Deleted")
+		if err := db.Count(&paging.Total).Error; err != nil {
 			ctx.JSON(http.StatusBadRequest, gin.H{
 				"message": err.Error(),
 			})
 			return
 		}
-		fmt.Printf("Found %d items: %+v\n", len(data), data)
+		if err := db.Order("id asc").Offset((paging.Page - 1) * paging.Limit).Limit(paging.Limit).Find(&result).Error; err != nil {
+			ctx.JSON(http.StatusBadRequest, gin.H{
+				"message": err.Error(),
+			})
+			return
+		}
 		ctx.JSON(http.StatusOK, gin.H{
-			"data": data,
+			"data": map[string]any{
+				"items": result,
+				"page":  paging,
+			},
+			"message": "Get items successful",
+			"status":  http.StatusOK,
 		})
 	}
 }
@@ -181,7 +203,10 @@ func UpdateItem(db *gorm.DB) func(*gin.Context) {
 			})
 			return
 		}
-		*updatedData.Status = "completed"
+
+		// Tạo pointer cho status
+		completedStatus := "completed"
+		updatedData.Status = &completedStatus
 		fmt.Println(updatedData)
 		if err := db.Where("id = ?", id).Updates(&updatedData).Error; err != nil {
 			ctx.JSON(http.StatusBadRequest, gin.H{
