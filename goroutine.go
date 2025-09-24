@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func main() {
+func goroutine() {
 	var wg = sync.WaitGroup{}
 	var m = sync.RWMutex{}
 
