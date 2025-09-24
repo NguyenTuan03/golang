@@ -1,6 +1,10 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
 
 func main() {
 	router := gin.Default()
@@ -19,7 +23,17 @@ func main() {
 		})
 	})
 	// Router group
-
-	
+	routerGroup := router.Group("/api")
+	{
+		routerGroup.Group("/v1/user")
+		{
+			routerGroup.GET("/", func(ctx *gin.Context) {
+				ctx.JSON(http.StatusOK, gin.H{
+					"message": "success",
+				})
+			})
+		}
+	}
+	// http://localhost:8080/api/v1/user
 	router.Run(":8080")
 }
