@@ -19,7 +19,17 @@ func main() {
 		})
 	})
 	// Router group
+	userGroup := router.Group("/user")
+	{
+		userGroup.Group("/v1")
+		{
+			userGroup.GET("/", func(ctx *gin.Context) {
+				ctx.JSON(200, gin.H{
+					"message": "pong",
+				})
+			})
+		}
+	}
 
-	
 	router.Run(":8080")
 }
