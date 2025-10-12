@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func main() {
+func BT() {
 	//B1
 	// for i := 1; i <= 100; i++ {
 	// 	if (i == 6 || i == 48 || i == 75 || i == 89) {
