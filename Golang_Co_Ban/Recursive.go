@@ -34,7 +34,7 @@ func sumFibonacci(n int) int {
 	}
 	return sumFibonacci(n-1) + sumFibonacci(n-2)
 }
-func main() {
+func Recursive() {
 	fmt.Println("Please enter the function you want to do")
 	fmt.Println("[1] Sum from 1 to n")
 	fmt.Println("[2] List fibonacci")
