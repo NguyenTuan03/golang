@@ -15,6 +15,13 @@ func hienthithongtin(user *User) {
 	fmt.Println("Address: ", user.address)
 	fmt.Println("Age: ", user.age)
 }
+func (receiver User) hienthithongtin() {
+	fmt.Println("Name: ", receiver.name)
+	fmt.Println("Phone Numb`er: ", receiver.phone_number)
+	fmt.Println("Email: ", receiver.email)
+	fmt.Println("Address: ", receiver.address)
+	fmt.Println("Age: ", receiver.age)
+}
 func main() {
    user := User{
 	name: "John",
