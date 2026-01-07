@@ -40,6 +40,7 @@ func main() {
 	age: 20,
    }
    hienthithongtin(&anotherUser)
+   fmt.Println("================================================")
    // Add receiver in struct func
-   
+   anotherUser.hienthithongtin()
 }
