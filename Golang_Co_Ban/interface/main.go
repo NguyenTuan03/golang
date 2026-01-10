@@ -38,7 +38,7 @@ func MakeSound(a Animal) {
 
 }
 
-func main() {
+func Interface() {
 	// Tạo Dog instance bằng constructor function New()
 	myDog := dog.New("Buddy")
 	MakeSound(myDog) // ✅ Dog implement Animal và DogInterface
