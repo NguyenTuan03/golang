@@ -12,7 +12,7 @@ import (
 //    slice := []int{1, 2, 3, 4, 5}
 // 2. Sử dụng hàm make
 // 3. Slicing từ mảng
-func main() {
+func Slice() {
 	var nums [3]int = [3]int{1,2,3}
 	fmt.Println("check type ", reflect.TypeOf(nums).Kind())
 	fmt.Println("check type ", reflect.Slice)
