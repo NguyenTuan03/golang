@@ -3,10 +3,16 @@ package main
 import (
 	"fmt"
 	"library-management/service"
+	structs "library-management/struct"
+
+	"github.com/google/uuid"
 )
 
 func main() {
 	var choice int
+	var books = make(map[uuid.UUID]structs.BookStruct)
+	var persons = make(map[uuid.UUID]structs.PersonStruct)
+
 	for {
 		fmt.Println("\n🎓 ═════ CHUONG TRINH QUAN LY THU VIEN ═════")
 		fmt.Println("┌──────────────────────────────────────────┐")
@@ -24,10 +30,22 @@ func main() {
 		fmt.Scanln(&choice)
 		switch choice {
 		case 1:
-			service.AddBookService()
+			service.AddBookService(books)
 		case 2:
-			
+			service.ListBookService(books)
 		case 3:
+			service.AddPersonService(persons)
+		case 4:
+			service.ListPersonService(persons)
+		case 5:
+			service.BorrowBookService(books, persons)
+		case 6:
+			service.ListBorrowPersonService(books, persons)
+		case 7:
+			service.ReturnBookService(books, persons)
+		case 8:
+			service.SearchBookService(books)
+		case 9:
 			fmt.Println("\n👋 Cam on ban da su dung chuong trinh!")
 			fmt.Println("🚪 Thoat chuong trinh...")
 			return
