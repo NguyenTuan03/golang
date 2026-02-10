@@ -10,7 +10,7 @@ type Employeee struct {
 	Role string
 }
 
-func main() {
+func Map() {
 	drink := map[string]int{
 		"drink":  300,
 		"coffee": 500,
