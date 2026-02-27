@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-func main() {
+func Select() {
 	// Select là 1 cơ chế để chọn nhiều channel để nhận dữ liệu
 	// Các loại Select
 	// Unbuffered Channel: Chỉ chứa được 1 gtri tại 1 thời điểm
