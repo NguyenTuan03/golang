@@ -1,0 +1,12 @@
+1. Sequential (Tuần tự)
+- Mô tả: 1 lõi CPU xử lí từng tác vụ 1 cách tuần tự
+2. Concurrent (Đồng thời)
+- Mô tả: 1 lõi CPU xử lí các tác vụ đan xen nhau nên có tính đồng thời
+- Các tác vụ có thể hoàn thành gần cùng lúc, dù vẫn chỉ chạy trên 1 lõi CPU
+- Đa nhiệm treen 1 lõi CPU (multitasking sử dụng kĩ thuật như time slicing)
+3. Parallesim (Song song)
+- Mô tả: 2 lõi CPU, mỗi lõi xử lí 1 tác vụ riêng biệt từ đầu đến cuối (các tác vụ này thường nặng),.
+Các tác vụ này ko đan xen, nhưng đc xử lí cùng 1 lúc
+4. Concurrent, Parallel (Đồng thời và song song)
+- Mô tả: Nhiều lõi CPU xử lý các tác vụ vừa song song nhau vừa đồng thời, tức là xử lí nhiều tác vụ cùng lúc
+và mỗi tác vụ có thể được chia nhỏ để chạy đồng thời

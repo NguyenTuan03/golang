@@ -28,7 +28,7 @@ func CookPizza(ctx context.Context, chPizza chan<- string) {
 	}
 }
 
-func main() {
+func Context() {
 	// Context là 1 cơ chế giúp quản lí và kiểm soát thời gian sống cũng như hàng vi của các tác vụ trong chương trình
 	// đặc biệt khi làm việc với GoRoutine. Chúng ta có thể hình dung Context như 1 bộ điêu khiển từ xa cho phép:
 	// - Hủy bỏ các tác vụ
