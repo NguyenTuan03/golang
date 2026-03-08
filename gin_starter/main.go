@@ -32,6 +32,8 @@ func main() {
 				productHandlerV1 := handler.NewProductHandler()
 				product.GET("", productHandlerV1.GetListProducts)
 				product.GET("/:id", productHandlerV1.GetProductById)
+				product.GET("/admin/:slug", productHandlerV1.GetProductionBySlug)
+				product.GET("/categories/:category", productHandlerV1.GetProductsByCategory)
 				product.POST("", productHandlerV1.CreateNewProduct)
 				product.PUT("/:id", productHandlerV1.UpdateProductById)
 				product.DELETE("/:id", productHandlerV1.DeleteProductById)
