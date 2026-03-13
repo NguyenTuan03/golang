@@ -2,6 +2,7 @@ package main
 
 import (
 	"gin/internal/api/v1/handler"
+	handler2 "gin/internal/api/v2/handler"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -37,6 +38,19 @@ func main() {
 				product.POST("", productHandlerV1.CreateNewProduct)
 				product.PUT("/:id", productHandlerV1.UpdateProductById)
 				product.DELETE("/:id", productHandlerV1.DeleteProductById)
+			}
+		}
+		v2 := r.Group("/v2")
+		{
+			userv2 := v2.Group("/users")
+			{
+				userHandlerV2 := handler2.NewUserHandler()
+				userv2.GET("", userHandlerV2.GetListUsers)
+				userv2.GET("/:id", userHandlerV2.GetUserById)
+				userv2.GET("/admin/:uuid", userHandlerV2.GetUserByUuid)
+				userv2.POST("", userHandlerV2.CreateNewUser)
+				userv2.PUT("/:id", userHandlerV2.UpdateUserById)
+				userv2.DELETE("/:id", userHandlerV2.DeleteUserById)
 			}
 		}
 	}

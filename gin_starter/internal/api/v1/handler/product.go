@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"gin/utils"
 	"net/http"
 	"regexp"
 	"slices"
@@ -19,7 +20,12 @@ func (product *productHandler) GetListProducts(ctx *gin.Context) {
 	searchStr := ctx.Query("search")
 	limitStr := ctx.DefaultQuery("limit", "10")
 
-	limitInt, err := strconv.Atoi(limitStr)	
+	if err := utils.ValidationRequired("Search", searchStr); err != nil {
+		utils.ErrorResponse(ctx, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	limitInt, err := strconv.Atoi(limitStr)
 	if err != nil || limitInt < 0 {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"message": "Limit mus be positive",
