@@ -6,9 +6,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 type ResponseData struct {
-	Code int `json:"code`
+	Code int `json:"code"`
 	Message string `json:"message"`
-	Data interface{} `json:"data`
+	Data interface{} `json:"data"`
 }
 
 func SuccessResponse(ctx *gin.Context, msg string, data any) {
