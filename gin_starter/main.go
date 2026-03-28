@@ -3,9 +3,14 @@ package main
 import (
 	"gin/internal/api/v1/handler"
 	handler2 "gin/internal/api/v2/handler"
+	"gin/middleware"
 	"net/http"
 
+	"log"
+	"os"
+
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 func getPing(c *gin.Context) {
@@ -14,7 +19,18 @@ func getPing(c *gin.Context) {
 	})
 }
 func main() {
+	// Redirect standard log to stdout to align with Gin's output
+	log.SetOutput(os.Stdout)
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
+
+	if err := godotenv.Load(); err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
 	r := gin.Default()
+
+	go middleware.RemoveExpiredClients()
+
 	{
 		v1 := r.Group("/v1")
 		{
@@ -28,7 +44,7 @@ func main() {
 				user.PUT("/:id", userHandlerV1.UpdateUserById)
 				user.DELETE("/:id", userHandlerV1.DeleteUserById)
 			}
-			product := v1.Group("/products")
+			product := v1.Group("/products").Use(middleware.ApiKeyMiddleWare(), middleware.RateLimitingMiddleware())
 			{
 				productHandlerV1 := handler.NewProductHandler()
 				product.GET("", productHandlerV1.GetListProducts)
@@ -52,8 +68,18 @@ func main() {
 				userv2.PUT("/:id", userHandlerV2.UpdateUserById)
 				userv2.DELETE("/:id", userHandlerV2.DeleteUserById)
 			}
+			product := v2.Group("/products")
+			{
+				productHandlerV2 := handler2.NewProductHandler()
+				product.GET("/:id", productHandlerV2.GetProductById)
+
+			}
 		}
 	}
 
-	r.Run(":8386")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8386"
+	}
+	r.Run(":" + port)
 }

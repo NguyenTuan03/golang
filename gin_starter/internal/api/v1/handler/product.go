@@ -16,12 +16,18 @@ func NewProductHandler() *productHandler {
 	return &productHandler{}
 }
 
+type PostProductRequest struct {
+	Name        string  `json:"name" binding:"required,min=3,max=50"`
+	Price       float64 `json:"price" binding:"required"`
+	Description string  `json:"description" binding:"required"`
+}
+
 func (product *productHandler) GetListProducts(ctx *gin.Context) {
 	searchStr := ctx.Query("search")
 	limitStr := ctx.DefaultQuery("limit", "10")
 
 	if err := utils.ValidationRequired("Search", searchStr); err != nil {
-		utils.ErrorResponse(ctx, http.StatusBadRequest, err.Error())
+		utils.ErrorResponse(ctx, http.StatusBadRequest, utils.VALIDATION_ERROR, err)
 		return
 	}
 
@@ -103,9 +109,14 @@ func (product *productHandler) GetProductsByCategory(ctx *gin.Context) {
 }
 
 func (product *productHandler) CreateNewProduct(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, gin.H{
-		"message": "creat a new product",
-	})
+	var params PostProductRequest
+
+	if err := ctx.ShouldBindJSON(&params); err != nil {
+		utils.ErrorResponse(ctx, http.StatusBadRequest, utils.VALIDATION_ERROR, err)
+		return
+	}
+
+	utils.SuccessResponse(ctx, "create a new product", params)
 }
 
 func (product *productHandler) UpdateProductById(ctx *gin.Context) {

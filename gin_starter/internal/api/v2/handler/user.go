@@ -1,6 +1,7 @@
 package handler2
 
 import (
+	"log"
 	"net/http"
 	"strconv"
 
@@ -15,6 +16,7 @@ func NewUserHandler() *userHandler {
 }
 
 func (user *userHandler) GetListUsers(ctx *gin.Context) {
+	log.Println("Get list users v2")
 	ctx.JSON(http.StatusOK, gin.H{
 		"message": "List users",
 	})
