@@ -24,7 +24,7 @@ func ApiKeyMiddleWare() gin.HandlerFunc {
 			ctx.Abort()
 			return
 		}
- 
+
 		ctx.Next()
 	}
 }

@@ -1,0 +1,11 @@
+{
+  "level": "info",
+  "method": "GET",
+  "path": "/v1/products",
+  "ip": "::1",
+  "host": "localhost:8386",
+  "user_agent": "PostmanRuntime/7.52.0",
+  "status": 200,
+  "latency": 0.000125,
+  "time": "2026-03-29T10:49:57+07:00"
+}

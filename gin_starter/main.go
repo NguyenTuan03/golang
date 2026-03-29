@@ -44,7 +44,7 @@ func main() {
 				user.PUT("/:id", userHandlerV1.UpdateUserById)
 				user.DELETE("/:id", userHandlerV1.DeleteUserById)
 			}
-			product := v1.Group("/products").Use(middleware.ApiKeyMiddleWare(), middleware.RateLimitingMiddleware())
+			product := v1.Group("/products").Use(middleware.LoggerMiddleware(), middleware.ApiKeyMiddleWare(), middleware.RateLimitingMiddleware())
 			{
 				productHandlerV1 := handler.NewProductHandler()
 				product.GET("", productHandlerV1.GetListProducts)
