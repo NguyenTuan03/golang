@@ -51,6 +51,6 @@ func Ping(ctx context.Context) {
 	defer cancel()
 
 	if err := DB.PingContext(ctx); err != nil {
-		fmt.Println("unable to connect to database: %v", err)
+		fmt.Printf("unable to connect to database: %v", err)
 	}
 }
