@@ -1,14 +1,17 @@
 package routes
 
 import (
-	"user-management-api/internal/handler"
-
 	"github.com/gin-gonic/gin"
 )
 
-func SetupRoutes(r *gin.Engine, userHandler *handler.UserHandler) {
-	api := r.Group("/api/v1")
-	{
-		SetupUserRoutes(api, userHandler)
+type Route interface {
+	Register(r *gin.RouterGroup)
+}
+
+func SetupRoutes(r *gin.Engine, routes ...Route) {
+	v1api := r.Group("/api/v1")
+
+	for _, route := range routes {
+		route.Register(v1api)
 	}
 }

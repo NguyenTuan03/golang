@@ -32,7 +32,7 @@ func (h *UserHandler) CreateUser(c *gin.Context) {
 		return
 	}
 
-	if err := h.service.CreateUser(&user); err != nil {
+	if err := h.service.CreateUser (&user); err != nil {
 		c.JSON(http.StatusInternalServerError, utils.Response{
 			Success: false,
 			Data:    nil,
